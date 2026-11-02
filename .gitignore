@@ -1,0 +1,8 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local development notes — contain machine-specific paths and
+# internal test-folder names. Kept on disk, never published.
+notes/

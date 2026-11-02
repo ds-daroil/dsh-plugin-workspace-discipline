@@ -1,0 +1,19 @@
+- insert:
+    - id: workspace-discipline
+      name: 'dsh-plugin-workspace-discipline'
+      config:
+        # Enforce a specific workspace root. Leave this empty to use whatever
+        # directory the session is working in — that is the portable default,
+        # and it is what most installations want.
+        roots:
+          - 'E:/workspace'
+        # Paths exempt from the guard, relative to the root (or absolute).
+        ignore:
+          - 'dsh'
+        # Folder names treated as shared libraries beside the projects.
+        libraries:
+          - 'tools'
+          - 'skills'
+          - 'mcp'
+          - 'log'
+        strict: true

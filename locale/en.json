@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Workspace Discipline",
+    "description": "Enforces C-/T-/W- project folders and the shared tools library in every session."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "dsh-plugin-workspace-discipline",
+  "version": "1.1.0",
+  "type": "module",
+  "description": "Keeps every session inside a C/CW/T/W project folder with shared tools, skills, mcp and log libraries.",
+  "license": "MIT",
+  "author": "ds-daroil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ds-daroil/dsh-plugin-workspace-discipline.git"
+  },
+  "homepage": "https://github.com/ds-daroil/dsh-plugin-workspace-discipline#readme",
+  "bugs": {
+    "url": "https://github.com/ds-daroil/dsh-plugin-workspace-discipline/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
+    "workspace",
+    "project-layout",
+    "conventions"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.3"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

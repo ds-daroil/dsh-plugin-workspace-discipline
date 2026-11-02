@@ -85,6 +85,46 @@ and the contents of every shared library, so the agent can continue an existing
 folder instead of creating a duplicate, and can find reusable entries before
 writing a new one.
 
+## Renaming into CW-/W- is a prompt convention, not a block
+
+This is the one part of the plugin that a guard **cannot** enforce, and it is
+worth understanding before you rely on it.
+
+The write guard refuses to *create* a `CW-` or `W-` folder. It cannot refuse a
+**rename**: `Rename-Item`, `mv`, or any shell command moves a folder from `T-`
+to `CW-` without passing through the guard at all. The plugin also has no
+filesystem watcher, so it does not observe the rename afterwards.
+
+What it does instead is instruct the model, in the injected prompt section, to
+**name every folder and file it touched** whenever it renames a project into
+`CW-`/`W-`, renames one back out, or deletes files inside one. The intent is
+that a rename behaves like a permission change: you get an itemised list before
+anything is deleted.
+
+**This is a prompt-level convention, and prompts can be forgotten.** The
+instruction is re-sent on every step, but a long session, an aggressive context
+compaction, or a model that simply does not comply can drop it. There is no
+failure, no error, and no refusal — the folder is already renamed and the
+message simply does not say so.
+
+**So please treat it that way:**
+
+- **Before you rename anything into `CW-` or `W-`, be sure.** That kind says
+  "this folder is disposable". Anything you still want is one careless delete
+  away from being gone.
+- **Check what actually changed yourself** rather than trusting a summary. A
+  short list in the reply is a helpful courtesy, not a guarantee that it is
+  complete.
+- **Deleting a `CW-` or `W-` folder deserves the most care of all.** There is no
+  undo, and the plugin never deletes anything for you — the decision and the
+  deletion are yours.
+- If an agent reports "done" without a list, ask it for one explicitly before you
+  delete anything.
+
+If you want a hard rule instead of a convention, do not rename folders through
+the agent at all — rename them yourself, and keep the agent's writes inside
+`C-`/`T-` where the guard still applies.
+
 ## Install
 
 ```bash
@@ -154,6 +194,8 @@ guardrail, not as containment.
 **It cannot see renames.** Renaming a folder with a shell command is not
 intercepted, so an agent could in principle move a `C-` folder to `CW-`. The
 reservation of `CW-`/`W-` for the human is enforced on creation, not on rename.
+See [Renaming into CW-/W-](#renaming-into-cw--w--is-a-prompt-convention-not-a-block)
+for what the plugin does instead and how much to trust it.
 
 **History protection is a shape check.** For a library `README.md` rewrite, the
 plugin refuses if a heading is missing or an existing line would vanish. It does
